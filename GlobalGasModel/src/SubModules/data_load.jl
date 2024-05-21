@@ -175,9 +175,6 @@ function get_GGM_inputs(
     seasonal_sector_intercept = Dict( (n,k,d,y) => reference_price[n,d,y] * (1-1/sectoral_price_elasticity[k]) for n in N_c, k in K, d in D, y in Y)
     seasonal_sector_slope = Dict( (n,k,d,y) => -reference_price[n,d,y] / (sectoral_price_elasticity[k] * sectoral_reference_consumption[n,k,d,y] ) for n in N_c, k in K, d in D, y in Y)
 
-    ### 
-    print(projected_quantities)
-    ###
     slp = Dict( (n,d,y) => 1/sum(1/seasonal_sector_slope[n,k,d,y] for k in K) for n in N_c, d in D, y in Y)
     int = Dict( (n,d,y) => slp[n,d,y] * sum( seasonal_sector_intercept[n,k,d,y] / seasonal_sector_slope[n,k,d,y] for k in K) for n in N_c, d in D, y in Y )
 
